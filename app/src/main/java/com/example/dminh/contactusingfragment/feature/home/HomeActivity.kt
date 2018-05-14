@@ -14,10 +14,9 @@ import com.example.dminh.contactusingfragment.R
 import com.example.dminh.contactusingfragment.models.MyContact
 import kotlinx.android.synthetic.main.activity_home.*
 
-
 class HomeActivity : AppCompatActivity(), ContactFragment.OnContactFragmentInteractionListener {
 
-    val MY_PERMISSIONS_REQUEST_READ_CONTACTS = 1
+    private val REQUEST_CODE = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +40,7 @@ class HomeActivity : AppCompatActivity(), ContactFragment.OnContactFragmentInter
             val fragment: Fragment? = supportFragmentManager.findFragmentByTag("contactDetail")
 
             if  (fragment != null){
-                supportFragmentManager.beginTransaction().remove(fragment).commit();
+                supportFragmentManager.beginTransaction().remove(fragment).commit()
             }
              supportFragmentManager
                         .beginTransaction()
@@ -53,7 +52,7 @@ class HomeActivity : AppCompatActivity(), ContactFragment.OnContactFragmentInter
             val contactDetailFragment = ContactDetailFragment.newInstance(myContact)
             val fragment: Fragment? = supportFragmentManager.findFragmentByTag("contactDetail")
             if  (fragment != null){
-                supportFragmentManager.beginTransaction().remove(fragment).commit();
+                supportFragmentManager.beginTransaction().remove(fragment).commit()
             }
             supportFragmentManager
                     .beginTransaction()
@@ -79,8 +78,8 @@ class HomeActivity : AppCompatActivity(), ContactFragment.OnContactFragmentInter
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         when (requestCode){
-            MY_PERMISSIONS_REQUEST_READ_CONTACTS ->
-                if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+            REQUEST_CODE ->
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
                     setFragment()
                 } else {
                     requestPermission()
@@ -88,7 +87,7 @@ class HomeActivity : AppCompatActivity(), ContactFragment.OnContactFragmentInter
         }
     }
 
-    fun requestPermission(){
+    private fun requestPermission(){
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED){
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS)){
                 Toast.makeText(this, "explain", Toast.LENGTH_SHORT).show()
@@ -96,14 +95,14 @@ class HomeActivity : AppCompatActivity(), ContactFragment.OnContactFragmentInter
             } else{
 
             }
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_CONTACTS), MY_PERMISSIONS_REQUEST_READ_CONTACTS)
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_CONTACTS), REQUEST_CODE)
         } else{
             // permisson already granted
             setFragment()
         }
     }
 
-    fun setFragment(){
+    private fun setFragment(){
         val contactFragment = ContactFragment()
         val fragment: Fragment? = supportFragmentManager.findFragmentByTag("contact")
         if (fragment == null){
@@ -114,11 +113,11 @@ class HomeActivity : AppCompatActivity(), ContactFragment.OnContactFragmentInter
         }
     }
 
-    fun isTablet(): Boolean {
+    private fun isTablet(): Boolean {
         return resources.configuration.screenLayout and Configuration.SCREENLAYOUT_SIZE_MASK >= Configuration.SCREENLAYOUT_SIZE_LARGE
     }
 
-    fun isLandscape() : Boolean{
+    private fun isLandscape() : Boolean{
         return  when {
             this@HomeActivity.resources.configuration.orientation ==  Configuration.ORIENTATION_LANDSCAPE -> true
             else -> false

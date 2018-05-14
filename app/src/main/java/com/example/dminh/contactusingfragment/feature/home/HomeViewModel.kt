@@ -5,7 +5,7 @@ import android.arch.lifecycle.ViewModel
 import com.example.dminh.contactusingfragment.models.MyContact
 import com.example.dminh.contactusingfragment.repository.ReadContactRepo
 
-class HomeViewModel(val readContactRepo: ReadContactRepo) : ViewModel(){
+class HomeViewModel(readContactRepo: ReadContactRepo) : ViewModel(){
     var myContacts: MutableLiveData<List<MyContact>> = MutableLiveData()
     init {
         myContacts = readContactRepo.readContact()

@@ -22,11 +22,7 @@ data class ContactAdapter(var contacts: List<MyContact>? = null, val itemClicked
 
     override fun onBindViewHolder(holder: ViewHolder, @SuppressLint("RecyclerView") position: Int) {
         holder.bindData(contacts?.get(position))
-        holder.item.setOnClickListener(object : View.OnClickListener{
-            override fun onClick(v: View?) {
-                itemClicked?.itemClicked(contacts?.get(position))
-            }
-        })
+        holder.item.setOnClickListener { itemClicked?.itemClicked(contacts?.get(position)) }
     }
 
     class ViewHolder(var item: View) : RecyclerView.ViewHolder(item) {

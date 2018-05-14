@@ -16,7 +16,6 @@ import com.example.dminh.contactusingfragment.R
 import com.example.dminh.contactusingfragment.models.MyContact
 import com.example.dminh.contactusingfragment.repository.ReadContactRepo
 import kotlinx.android.synthetic.main.fragment_contact.*
-import kotlinx.android.synthetic.main.fragment_contact.view.*
 
 
 class ContactFragment : Fragment(), IClickedEvent {
