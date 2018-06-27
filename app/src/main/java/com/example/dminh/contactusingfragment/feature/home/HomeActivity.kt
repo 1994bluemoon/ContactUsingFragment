@@ -118,7 +118,7 @@ class HomeActivity : AppCompatActivity(), ContactFragment.OnContactFragmentInter
     }
 
     private fun isLandscape() : Boolean{
-        return  when {
+        return when {
             this@HomeActivity.resources.configuration.orientation ==  Configuration.ORIENTATION_LANDSCAPE -> true
             else -> false
         }
